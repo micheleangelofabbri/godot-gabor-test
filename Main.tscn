@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Gabor.gd" type="Script" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[node name="Main" type="Node"]
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.501961, 0.501961, 0.501961, 1 )
+
+[node name="StartTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="LeftStartPosition" type="Position2D" parent="."]
+position = Vector2( 200, 300 )
+
+[node name="RightStartPosition" type="Position2D" parent="."]
+position = Vector2( 800, 300 )
+
+[node name="HUD" parent="." instance=ExtResource( 3 )]
+
+[node name="Gabor" type="Area2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Gabor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gabor"]
+shape = SubResource( 1 )
+disabled = true
+
+[connection signal="hit" from="Gabor" to="." method="_on_Gabor_hit"]
